@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="author" content="Shlok" />
+        <meta name="description" content="lorem ipsum" />
+        <meta charset="utf-8" />
+        <meta name="keywords" content="HTML, CSS, JS, Weather Application" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>EDUCATOR</title>
+        <link href="img/WEBICON.jpg" rel="icon" type="image/x-icon" />
+        
+    </head>
+    <body>
+        <div>
+            <div style="float: right;">
+                <nav style="size: 16px;">
+                    <a href="index.html" style="color:black; text-decoration: none; margin-right: 30px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Home</a>
+                    <a href="index.html" style="color: black; text-decoration: none; margin-right: 30px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">About</a>
+                    <a href="Search.html" style="color: black; text-decoration: none; margin-right: 30px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Search</a>
+                    <a href="#" style="color: black; text-decoration: none; margin-right: 30px;font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">Genre</a>
+                  </nav>
+                  </div>
+        <header>
+            <div >
+            <h1 style="color: black; font-size: 25px; font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;">
+              <img src="img/Website logo.png" alt="WEBPAGE" width="50" height="50" />EDUCATOR
+            </h1>
+            
+            </div>
+            <div>
+            <input id="searchInput" type="text" placeholder="Enter the book name" style="height: 30px; width: 1000px;" />
+            <button id="searchButton" style="border-radius: 40px;font-size: 24px; color: #ffffffff; background-color: #6EBB2D; width: 220px; height: 56px; box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.5);">Search</button>
+            <div id="results"></div>
+            
+        </div>
+        </div>
+        <script>
+            // Function to fetch books from Open Library API
+            function fetchBooks(query) {
+                // URL for Open Library API
+                const url = `http://openlibrary.org/search.json?q=${query}`;
+    
+                // Fetch data from the API
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        displayResults(data.docs);
+                    })
+                    .catch(error => console.error('Error fetching books:', error));
+            }
+    
+            // Function to display search results
+            function displayResults(books) {
+                const resultsDiv = document.getElementById('results');
+                resultsDiv.innerHTML = '';
+    
+                books.forEach(book => {
+                    const title = book.title ? book.title : 'Unknown Title';
+                    const authors = book.author_name ? book.author_name.join(', ') : 'Unknown Author';
+                    const coverId = book.cover_i ? book.cover_i : 'no-cover';
+                    const coverUrl = `http://covers.openlibrary.org/b/id/${coverId}-M.jpg`;
+    
+                    const bookDiv = document.createElement('div');
+                    bookDiv.classList.add('book');
+    
+                    const img = document.createElement('img');
+                    img.src = coverUrl;
+                    img.alt = title;
+    
+                    const titlePara = document.createElement('p');
+                    titlePara.textContent = title;
+    
+                    const authorsPara = document.createElement('p');
+                    authorsPara.textContent = `Author(s): ${authors}`;
+                    
+                    bookDiv.appendChild(img);
+                    bookDiv.appendChild(titlePara);
+                    bookDiv.appendChild(authorsPara);
+    
+                    resultsDiv.appendChild(bookDiv);
+                });
+            }
+    
+            // Event listener for search button click
+            document.getElementById('searchButton').addEventListener('click', function() {
+                const query = document.getElementById('searchInput').value.trim();
+                if (query !== '') {
+                    fetchBooks(query);
+                } else {
+                    alert('Please enter a search query.');
+                }
+            });
+        </script>
+    </body>
+    </html>

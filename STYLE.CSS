@@ -1,0 +1,38 @@
+
+.navbar{
+   border: 2px solid black;
+   border-radius: 10px;
+   background-color:transparent;
+   margin-top: 10px;
+}
+a:hover{
+    background-color: grey;
+}
+#bottomlist{
+    height: 100px;
+    width: 100%;
+    background-color:#1C2534;
+}
+#bottom{
+    display: flex;
+    justify-content: center
+}
+h4{
+    text-align: center;
+    text-decoration: underline;
+    font-size: larger;
+    color: beige;
+}
+.side{
+    margin-right: 60px;
+    color: beige;
+}
+i{
+    margin-right:5px;
+}
+h2{
+    font-size: 45px;
+}
+#content1{
+    font-size: 30px;
+}
